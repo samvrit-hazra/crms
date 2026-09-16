@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Car Rental System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Car Rental Management System</h1>
+    <h2>Login</h2>
+
+    <form id="loginForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <br>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <br>
+        <div>
+            <label for="role">Select Role:</label>
+            <select id="role" name="role" required>
+                <option value="customer.html">Customer</option>
+                <option value="manager.html">Manager</option>
+                <option value="driver.html">Driver</option>
+                <option value="inspector.html">Quality Inspector</option>
+            </select>
+        </div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var targetPage = document.getElementById('role').value;
+            window.location.href = targetPage;
+        });
+    </script>
+
+</body>
+</html>

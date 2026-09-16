@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - Car Rental System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Driver Dashboard</h1>
+    <p>Welcome, Driver Rajesh | <a href="index.html">Logout</a></p>
+
+    <hr>
+
+    <!-- Section 1: Duty Status -->
+    <h2>Duty Status</h2>
+    <div>
+        <label for="dutyStatus">Current Status:</label>
+        <select id="dutyStatus" onchange="changeDutyStatus()">
+            <option value="On Duty - Available">On Duty - Available</option>
+            <option value="On Duty - In Trip">On Duty - In Trip</option>
+            <option value="Off Duty">Off Duty</option>
+        </select>
+        <p id="dutyIndicator" style="margin-top: 8px;"><strong>[Status: On Duty - Available]</strong></p>
+    </div>
+
+    <hr>
+
+    <!-- Section 2: Assigned Trips -->
+    <h2>Assigned Trips</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="driverTripsTable">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer Name</th>
+                <th>Mobile Number</th>
+                <th>Car Assigned</th>
+                <th>Pickup Location</th>
+                <th>Dates</th>
+                <th>Trip Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="driverTripsBody">
+            <tr id="trip-B102">
+                <td>B102</td>
+                <td>Priya Patel</td>
+                <td>9123456780</td>
+                <td>Honda CR-V (C002)</td>
+                <td>Airport Terminal 2</td>
+                <td>2026-09-21 to 2026-09-24</td>
+                <td id="tripStatus-B102"><strong>Assigned</strong></td>
+                <td>
+                    <button type="button" id="btn-B102" onclick="advanceTripStatus('B102')">Accept Trip</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Section 3: Completed Trips History -->
+    <h2>Completed Trips</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="completedTripsTable">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer</th>
+                <th>Pickup & Drop</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>B098</td>
+                <td>Amit Kumar</td>
+                <td>City Center -> Airport</td>
+                <td>2026-09-15</td>
+                <td><strong>Completed</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function changeDutyStatus() {
+            var val = document.getElementById('dutyStatus').value;
+            document.getElementById('dutyIndicator').innerHTML = '<strong>[Status: ' + val + ']</strong>';
+        }
+
+        function advanceTripStatus(bookingId) {
+            var statusCell = document.getElementById('tripStatus-' + bookingId);
+            var btn = document.getElementById('btn-' + bookingId);
+
+            if (statusCell.innerText === 'Assigned') {
+                statusCell.innerHTML = '<strong>Accepted</strong>';
+                btn.innerText = 'Start Trip';
+                alert('Trip ' + bookingId + ' accepted.');
+            } else if (statusCell.innerText === 'Accepted') {
+                statusCell.innerHTML = '<strong>In Transit</strong>';
+                btn.innerText = 'Complete Trip';
+                document.getElementById('dutyStatus').value = 'On Duty - In Trip';
+                changeDutyStatus();
+                alert('Trip ' + bookingId + ' started.');
+            } else if (statusCell.innerText === 'In Transit') {
+                statusCell.innerHTML = '<strong>Completed</strong>';
+                btn.disabled = true;
+                btn.innerText = 'Done';
+                document.getElementById('dutyStatus').value = 'On Duty - Available';
+                changeDutyStatus();
+                alert('Trip ' + bookingId + ' completed successfully!');
+            }
+        }
+    </script>
+
+</body>
+</html>

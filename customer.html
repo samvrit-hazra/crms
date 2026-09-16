@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Car Rental System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Customer Dashboard</h1>
+    <p>Welcome, Customer | <a href="index.html">Logout</a></p>
+
+    <hr>
+
+    <!-- Section 1: Available Cars -->
+    <h2>Available Cars for Rent</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="carsTable">
+        <thead>
+            <tr>
+                <th>Car ID</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Price / Day (₹)</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>C001</td>
+                <td>Toyota Corolla</td>
+                <td>Sedan</td>
+                <td>1,400</td>
+                <td>Available</td>
+                <td><button type="button" onclick="selectCar('C001', 'Toyota Corolla', 1400)">Select</button></td>
+            </tr>
+            <tr>
+                <td>C002</td>
+                <td>Honda CR-V</td>
+                <td>SUV</td>
+                <td>2,200</td>
+                <td>Available</td>
+                <td><button type="button" onclick="selectCar('C002', 'Honda CR-V', 2200)">Select</button></td>
+            </tr>
+            <tr>
+                <td>C003</td>
+                <td>BMW 5 Series</td>
+                <td>Luxury Sedan</td>
+                <td>4,800</td>
+                <td>Available</td>
+                <td><button type="button" onclick="selectCar('C003', 'BMW 5 Series', 4800)">Select</button></td>
+            </tr>
+            <tr>
+                <td>C004</td>
+                <td>Ford Mustang</td>
+                <td>Sports</td>
+                <td>4,200</td>
+                <td>Available</td>
+                <td><button type="button" onclick="selectCar('C004', 'Ford Mustang', 4200)">Select</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Section 2: Book a Car -->
+    <h2>Book a Car</h2>
+    <form id="bookingForm">
+        <div>
+            <label for="customerName">Your Full Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+        </div>
+        <br>
+        <div>
+            <label for="customerPhone">Mobile Number:</label>
+            <input type="tel" id="customerPhone" name="customerPhone" placeholder="e.g. 9876543210" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" required>
+        </div>
+        <br>
+        <div>
+            <label for="selectedCar">Selected Car:</label>
+            <input type="text" id="selectedCar" name="selectedCar" placeholder="Click 'Select' above" readonly required>
+            <input type="hidden" id="carPricePerDay">
+        </div>
+        <br>
+        <div>
+            <label for="pickupDate">Pickup Date:</label>
+            <input type="date" id="pickupDate" name="pickupDate" required>
+        </div>
+        <br>
+        <div>
+            <label for="returnDate">Return Date:</label>
+            <input type="date" id="returnDate" name="returnDate" required>
+        </div>
+        <br>
+        <div>
+            <label for="pickupLocation">Pickup Location:</label>
+            <input type="text" id="pickupLocation" name="pickupLocation" placeholder="e.g. Airport Terminal 1" required>
+        </div>
+        <br>
+        <div>
+            <label>
+                <input type="checkbox" id="needDriver" name="needDriver">
+                Request a Driver (+₹400/day)
+            </label>
+        </div>
+        <br>
+        <button type="submit">Submit Booking Request</button>
+    </form>
+
+    <hr>
+
+    <!-- Section 3: My Bookings -->
+    <h2>My Bookings</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="myBookingsTable">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Car</th>
+                <th>Pickup Date</th>
+                <th>Return Date</th>
+                <th>Driver Requested</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="bookingsBody">
+            <tr id="booking-B101">
+                <td>B101</td>
+                <td>Toyota Corolla</td>
+                <td>2026-09-20</td>
+                <td>2026-09-23</td>
+                <td>No</td>
+                <td class="booking-status"><strong>Confirmed</strong></td>
+                <td><button type="button" onclick="cancelBooking(this, 'B101')">Cancel Booking</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function selectCar(id, model, price) {
+            document.getElementById('selectedCar').value = id + ' - ' + model;
+            document.getElementById('carPricePerDay').value = price;
+        }
+
+        function cancelBooking(btn, bookingId) {
+            var confirmed = confirm('Are you sure you want to cancel booking ' + bookingId + '?');
+            if (confirmed) {
+                var row = btn.parentElement.parentElement;
+                var statusCell = row.querySelector('.booking-status');
+                statusCell.innerHTML = '<strong style="color: red;">Cancelled</strong>';
+                btn.disabled = true;
+                btn.innerText = 'Cancelled';
+                alert('Booking ' + bookingId + ' has been cancelled successfully.');
+            }
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var car = document.getElementById('selectedCar').value;
+            var pickup = document.getElementById('pickupDate').value;
+            var returnDate = document.getElementById('returnDate').value;
+            var needDriver = document.getElementById('needDriver').checked ? 'Yes' : 'No';
+            var newBookingId = 'B' + Math.floor(100 + Math.random() * 900);
+
+            var tbody = document.getElementById('bookingsBody');
+            var newRow = tbody.insertRow();
+            newRow.id = 'booking-' + newBookingId;
+            newRow.innerHTML = '<td>' + newBookingId + '</td>' +
+                               '<td>' + car + '</td>' +
+                               '<td>' + pickup + '</td>' +
+                               '<td>' + returnDate + '</td>' +
+                               '<td>' + needDriver + '</td>' +
+                               '<td class="booking-status"><strong>Pending Approval</strong></td>' +
+                               '<td><button type="button" onclick="cancelBooking(this, \'' + newBookingId + '\')">Cancel Booking</button></td>';
+
+            alert('Booking submitted successfully! Booking ID: ' + newBookingId);
+            document.getElementById('bookingForm').reset();
+        });
+    </script>
+
+</body>
+</html>

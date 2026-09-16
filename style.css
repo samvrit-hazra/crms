@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Car Rental Management System - Retro 90s Neocities / Geocities Parchment
+   Warm earthy tones, serif headers, nostalgic card panels & warm accents
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap');
+
+:root {
+    --bg-parchment: #f6f1e5;
+    --card-parchment: #fdfbf7;
+    --text-ink: #2b2318;
+    --text-muted: #5c4e3e;
+    --accent-terracotta: #8c3b24;
+    --accent-olive: #3d5031;
+    --accent-warmgold: #c9882b;
+    --border-vintage: #d3c4a8;
+    --border-dark: #8c7853;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-parchment);
+    background-image: radial-gradient(#e4dac4 1px, transparent 1px);
+    background-size: 16px 16px;
+    color: var(--text-ink);
+    font-family: 'Lora', 'Georgia', 'Times New Roman', serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 24px;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+/* Retro Serif & Handcrafted Headings */
+h1 {
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 26px;
+    color: var(--accent-terracotta);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--accent-terracotta);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 17px;
+    color: var(--accent-olive);
+    background-color: #eee4cc;
+    border-left: 6px solid var(--accent-olive);
+    border-top: 1px solid var(--border-vintage);
+    border-right: 1px solid var(--border-vintage);
+    border-bottom: 1px solid var(--border-vintage);
+    padding: 5px 10px;
+    margin: 22px 0 10px 0;
+    letter-spacing: 0.5px;
+}
+
+h3 {
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 14px;
+    color: var(--accent-terracotta);
+    margin: 14px 0 6px 0;
+}
+
+p {
+    margin-bottom: 10px;
+    color: var(--text-muted);
+}
+
+/* Vintage Ornamental Divider */
+hr {
+    border: none;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, var(--border-dark), transparent);
+    margin: 18px 0;
+}
+
+/* Earthy Vintage Hyperlinks */
+a {
+    color: var(--accent-terracotta);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+a:hover {
+    color: var(--accent-warmgold);
+}
+
+a:visited {
+    color: #63324d;
+}
+
+/* Parchment Data Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-parchment);
+    border: 2px solid var(--border-dark);
+    box-shadow: 2px 2px 0px rgba(92, 78, 62, 0.15);
+    margin: 10px 0 18px 0;
+}
+
+th {
+    background-color: var(--accent-olive);
+    color: #fdfbf7;
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #2d3b24;
+}
+
+td {
+    padding: 7px 10px;
+    border: 1px solid var(--border-vintage);
+    color: var(--text-ink);
+}
+
+tr:nth-child(even) td {
+    background-color: #f7f1e3;
+}
+
+tr:hover td {
+    background-color: #fff6d9; /* Warm sunlit highlight */
+}
+
+/* Vintage Paper Card Forms */
+form {
+    background-color: var(--card-parchment);
+    border: 2px solid var(--border-dark);
+    box-shadow: 3px 3px 0px rgba(92, 78, 62, 0.2);
+    padding: 18px 22px;
+    margin: 12px 0 20px 0;
+    max-width: 550px;
+}
+
+label {
+    font-family: 'Lora', 'Georgia', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-ink);
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="tel"],
+select,
+textarea {
+    font-family: 'Lora', 'Georgia', serif;
+    font-size: 13px;
+    background-color: #fffdfa;
+    color: var(--text-ink);
+    border: 1px solid var(--border-dark);
+    padding: 5px 8px;
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.08);
+    margin-top: 2px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-terracotta);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(140, 59, 36, 0.2);
+}
+
+input[type="checkbox"] {
+    accent-color: var(--accent-terracotta);
+    margin-right: 6px;
+}
+
+form label input[type="checkbox"] {
+    display: inline;
+    width: auto;
+}
+
+/* Nostalgic Earthy Buttons */
+button, input[type="submit"] {
+    background: linear-gradient(to bottom, #a3482d 0%, #7d331e 100%);
+    color: #fdfbf7;
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding: 5px 14px;
+    border: 1px solid #5a2212;
+    border-radius: 2px;
+    box-shadow: 2px 2px 0px rgba(92, 78, 62, 0.3);
+    cursor: pointer;
+    margin: 2px 0;
+    transition: all 0.1s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background: linear-gradient(to bottom, #b55436 0%, #8c3b24 100%);
+    color: #ffffff;
+    box-shadow: 2px 2px 0px rgba(92, 78, 62, 0.4);
+}
+
+button:active, input[type="submit"]:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px rgba(92, 78, 62, 0.3);
+}
+
+button:disabled {
+    background: #c7bea8;
+    color: #6e6451;
+    border-color: #ab9f86;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Status Highlighting */
+strong {
+    font-weight: 600;
+}

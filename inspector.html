@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Inspector Dashboard - Car Rental System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Quality Inspector Dashboard</h1>
+    <p>Welcome, Inspector Suresh | <a href="index.html">Logout</a></p>
+
+    <hr>
+
+    <!-- Section 1: View Cars & Vehicle Availability Status -->
+    <h2>Fleet Vehicles & Availability Status</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="inspectorFleetTable">
+        <thead>
+            <tr>
+                <th>Car ID</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Current Status</th>
+                <th>Update Status</th>
+            </tr>
+        </thead>
+        <tbody id="inspectorFleetBody">
+            <tr>
+                <td>C001</td>
+                <td>Toyota Corolla</td>
+                <td>Sedan</td>
+                <td id="status-C001"><strong>Available</strong></td>
+                <td>
+                    <select onchange="updateVehicleStatus('C001', this.value)">
+                        <option value="Available" selected>Available</option>
+                        <option value="Under Inspection">Under Inspection</option>
+                        <option value="Maintenance">Maintenance</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>C002</td>
+                <td>Honda CR-V</td>
+                <td>SUV</td>
+                <td id="status-C002"><strong>Available</strong></td>
+                <td>
+                    <select onchange="updateVehicleStatus('C002', this.value)">
+                        <option value="Available" selected>Available</option>
+                        <option value="Under Inspection">Under Inspection</option>
+                        <option value="Maintenance">Maintenance</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>C003</td>
+                <td>BMW 5 Series</td>
+                <td>Luxury Sedan</td>
+                <td id="status-C003"><strong>Under Inspection</strong></td>
+                <td>
+                    <select onchange="updateVehicleStatus('C003', this.value)">
+                        <option value="Available">Available</option>
+                        <option value="Under Inspection" selected>Under Inspection</option>
+                        <option value="Maintenance">Maintenance</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>C004</td>
+                <td>Ford Mustang</td>
+                <td>Sports</td>
+                <td id="status-C004"><strong>Available</strong></td>
+                <td>
+                    <select onchange="updateVehicleStatus('C004', this.value)">
+                        <option value="Available" selected>Available</option>
+                        <option value="Under Inspection">Under Inspection</option>
+                        <option value="Maintenance">Maintenance</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Section 2: Pending Inspection Queue -->
+    <h2>Pending Inspection Tasks</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="inspectionQueueTable">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Car ID & Model</th>
+                <th>Inspection Type</th>
+                <th>Customer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>B101</td>
+                <td>C001 - Toyota Corolla</td>
+                <td>Pre-Rental Inspection</td>
+                <td>Rahul Sharma</td>
+                <td><button type="button" onclick="loadInspection('B101', 'C001 - Toyota Corolla', 'Pre-Rental')">Start Inspection</button></td>
+            </tr>
+            <tr>
+                <td>B099</td>
+                <td>C003 - BMW 5 Series</td>
+                <td>Post-Rental Return Inspection</td>
+                <td>Vikram Singh</td>
+                <td><button type="button" onclick="loadInspection('B099', 'C003 - BMW 5 Series', 'Post-Rental')">Start Inspection</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Section 3: Vehicle Inspection Checklist Form -->
+    <h2>Vehicle Inspection Form</h2>
+    <form id="inspectionForm">
+        <div>
+            <label for="inspectBookingId">Booking ID:</label>
+            <input type="text" id="inspectBookingId" readonly placeholder="Select a task above" required>
+        </div>
+        <br>
+        <div>
+            <label for="inspectCar">Vehicle:</label>
+            <input type="text" id="inspectCar" readonly placeholder="Select a task above" required>
+        </div>
+        <br>
+        <div>
+            <label for="inspectType">Inspection Stage:</label>
+            <input type="text" id="inspectType" readonly placeholder="Select a task above" required>
+        </div>
+        <br>
+        <div>
+            <label for="odometer">Odometer Reading (km):</label>
+            <input type="number" id="odometer" placeholder="e.g. 45200" required>
+        </div>
+        <br>
+        <div>
+            <label for="fuelLevel">Fuel / Battery Level (%):</label>
+            <input type="number" id="fuelLevel" min="0" max="100" placeholder="e.g. 95" required>
+        </div>
+        <br>
+        <div>
+            <label for="exteriorCondition">Exterior Body Condition:</label>
+            <select id="exteriorCondition" required>
+                <option value="Good / No Scratches">Good / No Scratches</option>
+                <option value="Minor Scratches">Minor Scratches</option>
+                <option value="Dent / Damage">Dent / Damage</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="interiorCleanliness">Interior Cleanliness:</label>
+            <select id="interiorCleanliness" required>
+                <option value="Clean & Sanitized">Clean & Sanitized</option>
+                <option value="Needs Cleaning">Needs Cleaning</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label>Safety & Mechanical Checks:</label><br>
+            <label><input type="checkbox" id="checkBrakes" required> Brakes & Steering OK</label><br>
+            <label><input type="checkbox" id="checkLights" required> Headlights & Indicators OK</label><br>
+            <label><input type="checkbox" id="checkAC" required> AC & Horn OK</label>
+        </div>
+        <br>
+        <div>
+            <label for="overallResult">Final Inspection Decision:</label>
+            <select id="overallResult" required>
+                <option value="Passed - Cleared for Drive">Passed - Cleared for Drive</option>
+                <option value="Failed - Send to Maintenance">Failed - Send to Maintenance</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="remarks">Inspector Remarks / Notes:</label><br>
+            <textarea id="remarks" rows="3" cols="50" placeholder="Any additional notes..."></textarea>
+        </div>
+        <br>
+        <button type="submit">Submit Inspection Report</button>
+    </form>
+
+    <hr>
+
+    <!-- Section 4: Completed Inspection Logs -->
+    <h2>Recent Inspection Logs</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="inspectionLogsTable">
+        <thead>
+            <tr>
+                <th>Report ID</th>
+                <th>Booking ID</th>
+                <th>Vehicle</th>
+                <th>Type</th>
+                <th>Odometer</th>
+                <th>Fuel</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody id="logsBody">
+            <tr>
+                <td>R501</td>
+                <td>B097</td>
+                <td>C004 - Ford Mustang</td>
+                <td>Post-Rental</td>
+                <td>32,150 km</td>
+                <td>90%</td>
+                <td><strong>Passed - Cleared for Drive</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function updateVehicleStatus(carId, newStatus) {
+            document.getElementById('status-' + carId).innerHTML = '<strong>' + newStatus + '</strong>';
+            alert('Status for ' + carId + ' updated to: ' + newStatus);
+        }
+
+        function loadInspection(bookingId, car, type) {
+            document.getElementById('inspectBookingId').value = bookingId;
+            document.getElementById('inspectCar').value = car;
+            document.getElementById('inspectType').value = type;
+        }
+
+        document.getElementById('inspectionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var bookingId = document.getElementById('inspectBookingId').value;
+            var car = document.getElementById('inspectCar').value;
+            var type = document.getElementById('inspectType').value;
+            var odo = document.getElementById('odometer').value;
+            var fuel = document.getElementById('fuelLevel').value;
+            var result = document.getElementById('overallResult').value;
+            var reportId = 'R' + Math.floor(500 + Math.random() * 500);
+
+            var tbody = document.getElementById('logsBody');
+            var newRow = tbody.insertRow();
+            newRow.innerHTML = '<td>' + reportId + '</td>' +
+                               '<td>' + bookingId + '</td>' +
+                               '<td>' + car + '</td>' +
+                               '<td>' + type + '</td>' +
+                               '<td>' + odo + ' km</td>' +
+                               '<td>' + fuel + '%</td>' +
+                               '<td><strong>' + result + '</strong></td>';
+
+            alert('Inspection Report ' + reportId + ' submitted successfully!');
+            document.getElementById('inspectionForm').reset();
+        });
+    </script>
+
+</body>
+</html>

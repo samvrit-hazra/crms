@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard - Car Rental System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Manager Dashboard</h1>
+    <p>Welcome, Manager | <a href="index.html">Logout</a></p>
+
+    <hr>
+
+    <!-- Section 1: Quick Overview Metrics -->
+    <h2>Overview Metrics</h2>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Total Fleet</th>
+            <th>Active Bookings</th>
+            <th>Available Drivers</th>
+            <th>Cars in Maintenance</th>
+        </tr>
+        <tr>
+            <td>4 Vehicles</td>
+            <td>1 Active</td>
+            <td>2 Available</td>
+            <td>0</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- Section 2: Manage Bookings -->
+    <h2>Booking Requests & Assignments</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="managerBookingsTable">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer Name</th>
+                <th>Mobile</th>
+                <th>Car</th>
+                <th>Dates</th>
+                <th>Driver Req?</th>
+                <th>Assign Driver</th>
+                <th>Assign Inspector</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="managerBookingsBody">
+            <tr id="row-B101">
+                <td>B101</td>
+                <td>Rahul Sharma</td>
+                <td>9876543210</td>
+                <td>Toyota Corolla (C001)</td>
+                <td>2026-09-20 to 2026-09-23</td>
+                <td>No</td>
+                <td>None</td>
+                <td>
+                    <select id="insp-B101">
+                        <option value="Inspector Suresh">Inspector Suresh</option>
+                        <option value="Inspector Ramesh">Inspector Ramesh</option>
+                    </select>
+                </td>
+                <td id="status-B101"><strong>Pending</strong></td>
+                <td>
+                    <button type="button" onclick="updateBooking('B101', 'Approved')">Approve</button>
+                    <button type="button" onclick="updateBooking('B101', 'Rejected')">Reject</button>
+                </td>
+            </tr>
+            <tr id="row-B102">
+                <td>B102</td>
+                <td>Priya Patel</td>
+                <td>9123456780</td>
+                <td>Honda CR-V (C002)</td>
+                <td>2026-09-21 to 2026-09-24</td>
+                <td>Yes</td>
+                <td>
+                    <select id="drv-B102">
+                        <option value="Driver Rajesh">Driver Rajesh</option>
+                        <option value="Driver Vikram">Driver Vikram</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="insp-B102">
+                        <option value="Inspector Suresh">Inspector Suresh</option>
+                        <option value="Inspector Ramesh">Inspector Ramesh</option>
+                    </select>
+                </td>
+                <td id="status-B102"><strong>Pending</strong></td>
+                <td>
+                    <button type="button" onclick="updateBooking('B102', 'Approved')">Approve</button>
+                    <button type="button" onclick="updateBooking('B102', 'Rejected')">Reject</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Section 3: Fleet Management -->
+    <h2>Fleet Inventory</h2>
+    <table border="1" cellpadding="8" cellspacing="0" id="fleetTable">
+        <thead>
+            <tr>
+                <th>Car ID</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Price / Day (₹)</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="fleetBody">
+            <tr>
+                <td>C001</td>
+                <td>Toyota Corolla</td>
+                <td>Sedan</td>
+                <td>₹1,400</td>
+                <td>Available</td>
+                <td><button type="button" onclick="toggleCarStatus(this)">Mark Maintenance</button></td>
+            </tr>
+            <tr>
+                <td>C002</td>
+                <td>Honda CR-V</td>
+                <td>SUV</td>
+                <td>₹2,200</td>
+                <td>Available</td>
+                <td><button type="button" onclick="toggleCarStatus(this)">Mark Maintenance</button></td>
+            </tr>
+            <tr>
+                <td>C003</td>
+                <td>BMW 5 Series</td>
+                <td>Luxury Sedan</td>
+                <td>₹4,800</td>
+                <td>Available</td>
+                <td><button type="button" onclick="toggleCarStatus(this)">Mark Maintenance</button></td>
+            </tr>
+            <tr>
+                <td>C004</td>
+                <td>Ford Mustang</td>
+                <td>Sports</td>
+                <td>₹4,200</td>
+                <td>Available</td>
+                <td><button type="button" onclick="toggleCarStatus(this)">Mark Maintenance</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <h3>Add New Vehicle</h3>
+    <form id="addCarForm">
+        <div>
+            <label for="newCarId">Car ID:</label>
+            <input type="text" id="newCarId" placeholder="e.g. C005" required>
+        </div>
+        <br>
+        <div>
+            <label for="newModel">Car Model:</label>
+            <input type="text" id="newModel" placeholder="e.g. Hyundai Creta" required>
+        </div>
+        <br>
+        <div>
+            <label for="newType">Category:</label>
+            <select id="newType" required>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Luxury">Luxury</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="newPrice">Price / Day (₹):</label>
+            <input type="number" id="newPrice" placeholder="e.g. 2000" required>
+        </div>
+        <br>
+        <button type="submit">Add Vehicle to Fleet</button>
+    </form>
+
+    <script>
+        function updateBooking(bookingId, status) {
+            var statusCell = document.getElementById('status-' + bookingId);
+            statusCell.innerHTML = '<strong>' + status + '</strong>';
+            alert('Booking ' + bookingId + ' has been ' + status + '!');
+        }
+
+        function toggleCarStatus(btn) {
+            var row = btn.parentElement.parentElement;
+            var statusCell = row.cells[4];
+            if (statusCell.innerText === 'Available') {
+                statusCell.innerText = 'Maintenance';
+                btn.innerText = 'Mark Available';
+            } else {
+                statusCell.innerText = 'Available';
+                btn.innerText = 'Mark Maintenance';
+            }
+        }
+
+        document.getElementById('addCarForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var id = document.getElementById('newCarId').value;
+            var model = document.getElementById('newModel').value;
+            var type = document.getElementById('newType').value;
+            var price = document.getElementById('newPrice').value;
+
+            var tableBody = document.getElementById('fleetBody');
+            var newRow = tableBody.insertRow();
+            newRow.innerHTML = '<td>' + id + '</td>' +
+                               '<td>' + model + '</td>' +
+                               '<td>' + type + '</td>' +
+                               '<td>₹' + price + '</td>' +
+                               '<td>Available</td>' +
+                               '<td><button type="button" onclick="toggleCarStatus(this)">Mark Maintenance</button></td>';
+
+            alert('Vehicle ' + model + ' added successfully!');
+            document.getElementById('addCarForm').reset();
+        });
+    </script>
+
+</body>
+</html>
